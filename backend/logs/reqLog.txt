@@ -29,3 +29,14 @@
 20221002	10:21:52	6a10d3d1-f71b-494e-a023-ec8c04af824f	GET	undefined	/
 20221002	10:21:53	2c31c594-480b-4829-be7a-984f412d8cfb	GET	undefined	/css/style.css
 20221002	10:21:53	eb258aad-38e6-495d-9fd2-96117682d4d6	GET	undefined	/favicon.ico
+20221005	15:55:21	4c0502f8-ce8f-42cc-a5cb-3e83b5b72020	GET	undefined	/
+20221005	15:55:21	03f1d8a2-1d83-4cd6-8fce-a3ed84b7a990	GET	undefined	/css/style.css
+20221005	15:55:21	6b5bd18a-3abc-4ae7-87a9-c6f0fedb469b	GET	undefined	/favicon.ico
+20221005	17:25:02	5f42929a-985a-4c71-a812-59abd553aa2a	POST	undefined	/register
+20221005	17:25:29	f3d8850c-a927-415f-91ae-164025fa5d76	POST	undefined	/register
+20221005	17:25:43	a8864cd8-f2b0-467d-ad39-ee0adfdf5d79	POST	undefined	/register
+20221005	17:25:47	5305e43c-f6fa-4d0a-aca0-e883d867e270	POST	undefined	/register
+20221005	18:59:51	aeab3874-9c51-4d9a-80a0-7a3cce6501cf	POST	undefined	/register
+20221005	19:27:24	8e785565-0b8d-4949-b5b0-4b21b9690596	POST	undefined	/auth
+20221005	19:27:29	28197217-afc9-45a9-aff2-d379f293ed1c	POST	undefined	/auth
+20221005	19:28:00	360cb078-9b1b-4d9f-8fe6-49da2c8d8843	POST	undefined	/auth
