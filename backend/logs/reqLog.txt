@@ -264,3 +264,5 @@
 20221007	22:01:41	9127d627-ef3e-45f4-adaf-250e8b7c30f0	GET	undefined	/refresh
 20221007	22:02:52	8d0aebeb-d6d7-47fe-af76-692aa0c41c3f	POST	undefined	/auth
 20221007	22:02:58	42150660-b56d-46ce-935f-8daa465a074f	GET	undefined	/logout
+20221008	20:30:19	76af9222-1b8b-4b81-af79-196536f941ce	OPTIONS	http://localhost:3000	/register
+20221008	20:30:19	e47db9a7-3af7-4b41-93da-22c02fde912e	POST	http://localhost:3000	/register
