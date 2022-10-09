@@ -1,7 +1,12 @@
 import { useState, useRef, useEffect, Fragment } from 'react';
-import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCheck,
+    faTimes,
+    faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from './api/axios';
+import axios from '../api/axios';
+import { Link } from 'react-router-dom';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -68,15 +73,22 @@ const Register = () => {
         //=========================================
         // Below code will run if we run the node backend code from the "Dave Gray's" nodejs course.
         try {
-            const response = await axios.post(REGISTER_URL, JSON.stringify({ user, pwd }), {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true,
-            });
+            const response = await axios.post(
+                REGISTER_URL,
+                JSON.stringify({ user, pwd }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                }
+            );
 
             console.log(response.data);
-            console.log(response.accessToken);
-            console.log(JSON.stringify(response));
+            // console.log(JSON.stringify(response));
             setSuccess(true);
+            //clear state and controlled inputs
+            setUser('');
+            setPwd('');
+            setMatchPwd('');
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -114,7 +126,11 @@ const Register = () => {
                             <span className={validName ? 'valid' : 'hide'}>
                                 <FontAwesomeIcon icon={faCheck} />
                             </span>
-                            <span className={validName || !user ? 'hide' : 'invalid'}>
+                            <span
+                                className={
+                                    validName || !user ? 'hide' : 'invalid'
+                                }
+                            >
                                 <FontAwesomeIcon icon={faTimes} />
                             </span>
                         </label>
@@ -133,7 +149,9 @@ const Register = () => {
                         <p
                             id="uidnote"
                             className={
-                                userFocus && user && !validName ? 'instructions' : 'offscreen'
+                                userFocus && user && !validName
+                                    ? 'instructions'
+                                    : 'offscreen'
                             }
                         >
                             <FontAwesomeIcon icon={faInfoCircle} />
@@ -149,7 +167,11 @@ const Register = () => {
                             <span className={validPwd ? 'valid' : 'hide'}>
                                 <FontAwesomeIcon icon={faCheck} />
                             </span>
-                            <span className={validPwd || !pwd ? 'hide' : 'invalid'}>
+                            <span
+                                className={
+                                    validPwd || !pwd ? 'hide' : 'invalid'
+                                }
+                            >
                                 <FontAwesomeIcon icon={faTimes} />
                             </span>
                         </label>
@@ -165,13 +187,18 @@ const Register = () => {
                         />
                         <p
                             id="pwdnote"
-                            className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}
+                            className={
+                                pwdFocus && !validPwd
+                                    ? 'instructions'
+                                    : 'offscreen'
+                            }
                         >
                             <FontAwesomeIcon icon={faInfoCircle} />
                             8 to 24 characters. <br />
-                            Must include uppercase and lowercase letters, a number and a special
-                            character. <br />
-                            Allowed special characters: <span aria-label="exclamation mark">!</span>
+                            Must include uppercase and lowercase letters, a
+                            number and a special character. <br />
+                            Allowed special characters:{' '}
+                            <span aria-label="exclamation mark">!</span>
                             <span aria-label="at symbol">@</span>
                             <span aria-label="hashtag">#</span>
                             <span aria-label="dollar sign">$</span>
@@ -181,10 +208,18 @@ const Register = () => {
                         {/* Confirm Password  */}
                         <label htmlFor="confirm_pwd">
                             Confirm Password:
-                            <span className={validMatch && matchPwd ? 'valid' : 'hide'}>
+                            <span
+                                className={
+                                    validMatch && matchPwd ? 'valid' : 'hide'
+                                }
+                            >
                                 <FontAwesomeIcon icon={faCheck} />
                             </span>
-                            <span className={validMatch || !matchPwd ? 'hide' : 'invalid'}>
+                            <span
+                                className={
+                                    validMatch || !matchPwd ? 'hide' : 'invalid'
+                                }
+                            >
                                 <FontAwesomeIcon icon={faTimes} />
                             </span>
                         </label>
@@ -200,20 +235,29 @@ const Register = () => {
                         />
                         <p
                             id="confirmnote"
-                            className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}
+                            className={
+                                matchFocus && !validMatch
+                                    ? 'instructions'
+                                    : 'offscreen'
+                            }
                         >
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Must match the first password input field.
                         </p>
-                        <button disabled={!validName || !validPwd || !validMatch ? true : false}>
+                        <button
+                            disabled={
+                                !validName || !validPwd || !validMatch
+                                    ? true
+                                    : false
+                            }
+                        >
                             Sign Up
                         </button>
                     </form>
                     <p>
                         Already registered? <br />
                         <span className="line">
-                            {/* put router link here */}
-                            <a href="/signin">Sign In</a>
+                            <Link to="/">Sign In</Link>
                         </span>
                     </p>
                 </section>
