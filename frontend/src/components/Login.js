@@ -40,6 +40,7 @@ const Login = () => {
                 }
             );
             console.log(JSON.stringify(response?.data));
+            //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
             setAuth({ user, pwd, roles, accessToken });
@@ -81,6 +82,7 @@ const Login = () => {
                     value={user}
                     required
                 />
+
                 <label htmlFor="password">Password:</label>
                 <input
                     type="password"
@@ -92,7 +94,8 @@ const Login = () => {
                 <button>Sign In</button>
             </form>
             <p>
-                Need an Account? <br />
+                Need an Account?
+                <br />
                 <span className="line">
                     <Link to="/register">Sign Up</Link>
                 </span>

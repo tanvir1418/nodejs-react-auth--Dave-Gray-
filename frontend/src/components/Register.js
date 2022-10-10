@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, Fragment } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import {
     faCheck,
     faTimes,
@@ -10,8 +10,6 @@ import { Link } from 'react-router-dom';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-
-// Below code will run if we run the node backend code from the "Dave Gray's" nodejs course.
 const REGISTER_URL = '/register';
 
 const Register = () => {
@@ -38,19 +36,12 @@ const Register = () => {
     }, []);
 
     useEffect(() => {
-        const result = USER_REGEX.test(user);
-        console.log(result);
-        console.log(user);
-        setValidName(result);
+        setValidName(USER_REGEX.test(user));
     }, [user]);
 
     useEffect(() => {
-        const result = PWD_REGEX.test(pwd);
-        console.log(result);
-        console.log(pwd);
-        setValidPwd(result);
-        const match = pwd === matchPwd;
-        setValidMatch(match);
+        setValidPwd(PWD_REGEX.test(pwd));
+        setValidMatch(pwd === matchPwd);
     }, [pwd, matchPwd]);
 
     useEffect(() => {
@@ -66,12 +57,6 @@ const Register = () => {
             setErrMsg('Invalid Entry');
             return;
         }
-
-        // console.log(user, pwd);
-        // setSuccess(true);
-
-        //=========================================
-        // Below code will run if we run the node backend code from the "Dave Gray's" nodejs course.
         try {
             const response = await axios.post(
                 REGISTER_URL,
@@ -81,9 +66,9 @@ const Register = () => {
                     withCredentials: true,
                 }
             );
-
-            console.log(response.data);
-            // console.log(JSON.stringify(response));
+            // TODO: remove console.logs before deployment
+            console.log(JSON.stringify(response?.data));
+            //console.log(JSON.stringify(response))
             setSuccess(true);
             //clear state and controlled inputs
             setUser('');
@@ -102,12 +87,12 @@ const Register = () => {
     };
 
     return (
-        <Fragment>
+        <>
             {success ? (
                 <section>
                     <h1>Success!</h1>
                     <p>
-                        <a href="/signin">Sign In</a>
+                        <a href="#">Sign In</a>
                     </p>
                 </section>
             ) : (
@@ -123,16 +108,16 @@ const Register = () => {
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="username">
                             Username:
-                            <span className={validName ? 'valid' : 'hide'}>
-                                <FontAwesomeIcon icon={faCheck} />
-                            </span>
-                            <span
+                            <FontAwesomeIcon
+                                icon={faCheck}
+                                className={validName ? 'valid' : 'hide'}
+                            />
+                            <FontAwesomeIcon
+                                icon={faTimes}
                                 className={
                                     validName || !user ? 'hide' : 'invalid'
                                 }
-                            >
-                                <FontAwesomeIcon icon={faTimes} />
-                            </span>
+                            />
                         </label>
                         <input
                             type="text"
@@ -140,6 +125,7 @@ const Register = () => {
                             ref={userRef}
                             autoComplete="off"
                             onChange={(e) => setUser(e.target.value)}
+                            value={user}
                             required
                             aria-invalid={validName ? 'false' : 'true'}
                             aria-describedby="uidnote"
@@ -155,30 +141,31 @@ const Register = () => {
                             }
                         >
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            4 to 24 characters. <br />
-                            Must begin with a letter. <br />
-                            Letters, numbers, underscore, hyphens allowed.
+                            4 to 24 characters.
+                            <br />
+                            Must begin with a letter.
+                            <br />
+                            Letters, numbers, underscores, hyphens allowed.
                         </p>
-
-                        {/* password  */}
 
                         <label htmlFor="password">
                             Password:
-                            <span className={validPwd ? 'valid' : 'hide'}>
-                                <FontAwesomeIcon icon={faCheck} />
-                            </span>
-                            <span
+                            <FontAwesomeIcon
+                                icon={faCheck}
+                                className={validPwd ? 'valid' : 'hide'}
+                            />
+                            <FontAwesomeIcon
+                                icon={faTimes}
                                 className={
                                     validPwd || !pwd ? 'hide' : 'invalid'
                                 }
-                            >
-                                <FontAwesomeIcon icon={faTimes} />
-                            </span>
+                            />
                         </label>
                         <input
                             type="password"
                             id="password"
                             onChange={(e) => setPwd(e.target.value)}
+                            value={pwd}
                             required
                             aria-invalid={validPwd ? 'false' : 'true'}
                             aria-describedby="pwdnote"
@@ -194,39 +181,39 @@ const Register = () => {
                             }
                         >
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            8 to 24 characters. <br />
+                            8 to 24 characters.
+                            <br />
                             Must include uppercase and lowercase letters, a
-                            number and a special character. <br />
+                            number and a special character.
+                            <br />
                             Allowed special characters:{' '}
-                            <span aria-label="exclamation mark">!</span>
-                            <span aria-label="at symbol">@</span>
-                            <span aria-label="hashtag">#</span>
-                            <span aria-label="dollar sign">$</span>
-                            <span aria-label="percent">%</span>.
+                            <span aria-label="exclamation mark">!</span>{' '}
+                            <span aria-label="at symbol">@</span>{' '}
+                            <span aria-label="hashtag">#</span>{' '}
+                            <span aria-label="dollar sign">$</span>{' '}
+                            <span aria-label="percent">%</span>
                         </p>
 
-                        {/* Confirm Password  */}
                         <label htmlFor="confirm_pwd">
                             Confirm Password:
-                            <span
+                            <FontAwesomeIcon
+                                icon={faCheck}
                                 className={
                                     validMatch && matchPwd ? 'valid' : 'hide'
                                 }
-                            >
-                                <FontAwesomeIcon icon={faCheck} />
-                            </span>
-                            <span
+                            />
+                            <FontAwesomeIcon
+                                icon={faTimes}
                                 className={
                                     validMatch || !matchPwd ? 'hide' : 'invalid'
                                 }
-                            >
-                                <FontAwesomeIcon icon={faTimes} />
-                            </span>
+                            />
                         </label>
                         <input
                             type="password"
                             id="confirm_pwd"
                             onChange={(e) => setMatchPwd(e.target.value)}
+                            value={matchPwd}
                             required
                             aria-invalid={validMatch ? 'false' : 'true'}
                             aria-describedby="confirmnote"
@@ -244,6 +231,7 @@ const Register = () => {
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Must match the first password input field.
                         </p>
+
                         <button
                             disabled={
                                 !validName || !validPwd || !validMatch
@@ -255,14 +243,15 @@ const Register = () => {
                         </button>
                     </form>
                     <p>
-                        Already registered? <br />
+                        Already registered?
+                        <br />
                         <span className="line">
                             <Link to="/">Sign In</Link>
                         </span>
                     </p>
                 </section>
             )}
-        </Fragment>
+        </>
     );
 };
 
